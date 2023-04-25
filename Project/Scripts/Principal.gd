@@ -8,7 +8,7 @@ onready var tilemap = $TileMap
 enum {bfs, dfs, slow}
 var mode = bfs
 var speedmode = slow
-var ortho = true
+var ortho = false
 var map_graph = preload("res://Scenes/grafos.tscn").instance()
 var tile_list
 var start_node
@@ -90,8 +90,6 @@ func draw_line_nodes(start, end, color = Color(1, 0.843137, 0, 0.5)):
 		
 func bfs_dfs(start, end, is_bfs):
 	var end_reached = false
-	#if is_bfs, then use queue, else use stack
-	#Queue uses array, so longer runtime
 	var visit_data = {}
 	var parent_data = {}
 	for node in map_graph.graph_dict:
@@ -112,7 +110,7 @@ func bfs_dfs(start, end, is_bfs):
 				parent_data[neighbor] = curr_node
 				draw_line_nodes(curr_node, neighbor)
 				rac = []
-				curr_node = end_node # for move on path function
+				curr_node = end_node 
 				end_reached = true
 				break
 			elif visit_data[neighbor] == false:
@@ -140,7 +138,7 @@ func move_on_path(parent_dict, start_node, last_node):
 
 		player.global_position = Vector2(curr.x *32 + 16 , curr.y *32 + 16)
 		
-		if i != 0: #don't connect start and end nodes! ugly
+		if i != 0: 
 			draw_line_nodes(path_order[i], path_order[i-1], Color(.5,.8,.5))
 		yield(get_tree().create_timer(.13), "timeout")
 		
@@ -149,10 +147,10 @@ func move_on_path(parent_dict, start_node, last_node):
 
 func _on_BFS_pressed():
 	mode = bfs
-	$ModeLabel.text = "/BFS"	
+	#$ModeLabel.text = "/BFS"	
 func _on_DFS_pressed():
 	mode = dfs
-	$ModeLabel.text = "/DFS"
+	#$ModeLabel.text = "/DFS"
 
 
 func _on_Ortho_pressed():
@@ -163,4 +161,3 @@ func _on_Ortho_pressed():
 		else:
 			$Ortho.text = "Diag."
 		build_graph()
-
