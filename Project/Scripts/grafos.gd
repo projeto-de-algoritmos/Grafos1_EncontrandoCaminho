@@ -1,25 +1,22 @@
 extends Node2D
 
 var graph_dict = {}
-var dicionarioGrafo = {}
 
-func iniciar(G):
-	dicionarioGrafo = G # Produz o grafo apartir de um que já existe
-
-func limpaDicionario():
-	dicionarioGrafo = {}
+func initiate(x):
+	graph_dict = x
 	
-func pegaVizinhanCa(no):
-	return dicionarioGrafo[no].keys()
+func nodes():
+	return graph_dict.keys()
 	
-func adicionaNo(no):
-	if not no in dicionarioGrafo:
-		dicionarioGrafo[no] = {}
-		
-func no():
-	#Lista de nós 
-	return dicionarioGrafo.keys()
+func get_neighbors(node):
+	return graph_dict[node].keys()
+	
+func add_node(node):
+	if not node in graph_dict:
+		graph_dict[node] = {}
 
-func adicionaVizinho(no, vizinho, aux):
-	dicionarioGrafo[no][vizinho] = aux
+func add_neighbor(node, neighbor, attr):
+	graph_dict[node][neighbor] = attr
 
+func clear():
+	graph_dict = {}

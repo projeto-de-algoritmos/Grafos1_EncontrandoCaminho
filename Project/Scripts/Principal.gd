@@ -1,8 +1,10 @@
 extends Node2D
 
+# Importando nós da cena principal 
 onready var player = $Cat
 onready var tilemap = $TileMap
 
+# Declaração de variáveis 
 enum {bfs, dfs, slow}
 var mode = bfs
 var speedmode = slow
@@ -13,12 +15,20 @@ var start_node
 var end_node
 var running = false
 
+# Função para gerar o grafo
 func build_graph():
+	
+	# limpa a instancia da cena 
 	map_graph.clear()
+	
+	# Método get_used_cells retorna uma matriz de todas as células
+	# que contêm um bloco do conjunto de blocos
 	tile_list = tilemap.get_used_cells()
 	for tile in tile_list:
 		map_graph.add_node(tile)
 	for tile in map_graph.graph_dict:
+		
+		# Para gerar o grafo na ortogonal
 		var top = Vector2(tile.x, tile.y - 1)
 		var bottom = Vector2(tile.x, tile.y + 1)
 		var left = Vector2(tile.x - 1, tile.y)
@@ -31,7 +41,9 @@ func build_graph():
 			map_graph.add_neighbor(tile, left, 1)
 		if right in tile_list:
 			map_graph.add_neighbor(tile, right, 1)
+		# Caso a variável ortho tenha o valor de false
 		if not ortho:
+			# Gerar o grafo na diagonal
 			var top_left = Vector2(tile.x - 1, tile.y - 1)
 			var top_right = Vector2(tile.x + 1, tile.y - 1)
 			var bottom_left = Vector2(tile.x - 1, tile.y + 1)
@@ -45,12 +57,18 @@ func build_graph():
 			if bottom_right in tile_list:
 				map_graph.add_neighbor(tile, bottom_right, pow(2, 0.5))
 
+#Quando uma cena é carregada pela primeira vez, 
+#esta função é chamada.
 func _ready():
 	build_graph()
+	
+	#Pega a posição inicial do player no mapa
 	start_node = tilemap.world_to_map(player.global_position)
 
 func _process(delta):
+	# Quando o usuário clica em algum posição do mapa
 	if Input.is_action_just_pressed("click") and not running:
+		# Pega posição do mouse 
 		end_node = tilemap.world_to_map(get_global_mouse_position())
 		if tilemap.get_cellv(end_node) != -1 and end_node != start_node:
 			for line in $Lines.get_children():
