@@ -15,6 +15,7 @@ var start_node
 var end_node
 var running = false
 
+
 # Função para gerar o grafo
 func build_graph():
 	
@@ -98,7 +99,7 @@ func bfs_dfs(start, end, is_bfs):
 	var rac = [start_node]
 	
 	var curr_node
-	while rac:
+	while rac: # enquanto a lista rac não está vazia
 		if is_bfs:
 			curr_node = rac.pop_front()
 		else:
@@ -106,9 +107,10 @@ func bfs_dfs(start, end, is_bfs):
 		var neighbors = map_graph.get_neighbors(curr_node)
 		neighbors.shuffle()
 		for neighbor in neighbors:
-			if neighbor == end_node:
-				parent_data[neighbor] = curr_node
-				draw_line_nodes(curr_node, neighbor)
+
+			if neighbor == end_node: # se o vizinho for igual ao nó final.
+				parent_data[neighbor] = curr_node # o pai do vizinho é definido como o nó atual
+				draw_line_nodes(curr_node, neighbor) # desenha uma linha nó atual ao final
 				rac = []
 				curr_node = end_node 
 				end_reached = true
