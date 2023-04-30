@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back32.png-cdfd0a771581f40c6ca22cd212fda604.stex"
+path="res://.import/fundo1.png-bdf9515553b5627df54d28d78cdef129.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assests/back32.png"
-dest_files=[ "res://.import/back32.png-cdfd0a771581f40c6ca22cd212fda604.stex" ]
+source_file="res://Assests/fundo1.png"
+dest_files=[ "res://.import/fundo1.png-bdf9515553b5627df54d28d78cdef129.stex" ]
 
 [params]
 

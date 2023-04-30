@@ -14,7 +14,7 @@ var tile_list
 var start_node
 var end_node
 var running = false
-
+var pop1
 
 # Função para gerar o grafo
 func build_graph():
@@ -29,7 +29,6 @@ func build_graph():
 		map_graph.add_node(tile)
 	for tile in map_graph.graph_dict:
 		
-		# Para gerar o grafo na ortogonal
 		var top = Vector2(tile.x, tile.y - 1)
 		var bottom = Vector2(tile.x, tile.y + 1)
 		var left = Vector2(tile.x - 1, tile.y)
@@ -42,21 +41,19 @@ func build_graph():
 			map_graph.add_neighbor(tile, left, 1)
 		if right in tile_list:
 			map_graph.add_neighbor(tile, right, 1)
-		# Caso a variável ortho tenha o valor de false
-		if not ortho:
-			# Gerar o grafo na diagonal
-			var top_left = Vector2(tile.x - 1, tile.y - 1)
-			var top_right = Vector2(tile.x + 1, tile.y - 1)
-			var bottom_left = Vector2(tile.x - 1, tile.y + 1)
-			var bottom_right = Vector2(tile.x + 1, tile.y + 1)
-			if top_left in tile_list:
-				map_graph.add_neighbor(tile, top_left, pow(2, 0.5))
-			if top_right in tile_list:
-				map_graph.add_neighbor(tile, top_right, pow(2, 0.5))
-			if bottom_left in tile_list:
-				map_graph.add_neighbor(tile, bottom_left, pow(2, 0.5))
-			if bottom_right in tile_list:
-				map_graph.add_neighbor(tile, bottom_right, pow(2, 0.5))
+			
+		var top_left = Vector2(tile.x - 1, tile.y - 1)
+		var top_right = Vector2(tile.x + 1, tile.y - 1)
+		var bottom_left = Vector2(tile.x - 1, tile.y + 1)
+		var bottom_right = Vector2(tile.x + 1, tile.y + 1)
+		if top_left in tile_list:
+			map_graph.add_neighbor(tile, top_left, pow(2, 0.5))
+		if top_right in tile_list:
+			map_graph.add_neighbor(tile, top_right, pow(2, 0.5))
+		if bottom_left in tile_list:
+			map_graph.add_neighbor(tile, bottom_left, pow(2, 0.5))
+		if bottom_right in tile_list:
+			map_graph.add_neighbor(tile, bottom_right, pow(2, 0.5))
 
 #Quando uma cena é carregada pela primeira vez, 
 #esta função é chamada.
@@ -67,6 +64,7 @@ func _ready():
 	start_node = tilemap.world_to_map(player.global_position)
 
 func _process(delta):
+		
 	# Quando o usuário clica em algum posição do mapa
 	if Input.is_action_just_pressed("click") and not running:
 		# Pega posição do mouse 
@@ -81,7 +79,7 @@ func _process(delta):
 				bfs_dfs(start_node, end_node, false)
 	
 
-func draw_line_nodes(start, end, color = Color(1, 0.843137, 0, 0.5)):
+func draw_line_nodes(start, end, color = Color(1, 1, 1, 0.7)):
 	var line = Line2D.new()
 	$Lines.add_child(line)
 	line.set_width(2)
@@ -139,9 +137,9 @@ func move_on_path(parent_dict, start_node, last_node):
 		var aux = player.global_position
 
 		player.global_position = Vector2(curr.x *32 + 16 , curr.y *32 + 16)
-		
+		pop1 = player.global_position
 		if i != 0: 
-			draw_line_nodes(path_order[i], path_order[i-1], Color(.5,.8,.5))
+			draw_line_nodes(path_order[i], path_order[i-1], Color(0.627451, 0.12549, 0.941176, 1))
 		yield(get_tree().create_timer(.13), "timeout")
 		
 	running = false
@@ -149,17 +147,7 @@ func move_on_path(parent_dict, start_node, last_node):
 
 func _on_BFS_pressed():
 	mode = bfs
-	#$ModeLabel.text = "/BFS"	
 func _on_DFS_pressed():
 	mode = dfs
-	#$ModeLabel.text = "/DFS"
 
 
-func _on_Ortho_pressed():
-	if not running:
-		ortho = not ortho
-		if ortho:
-			$Ortho.text = "Ortho."
-		else:
-			$Ortho.text = "Diag."
-		build_graph()
