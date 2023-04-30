@@ -13,7 +13,20 @@
 Este é um projeto de visualização de busca de caminhos que utiliza os algoritmos de busca em largura (BFS) e busca em profundidade (DFS) para encontrar caminhos em um sistema de grade. O projeto foi desenvolvido na Godot Engine, uma poderosa ferramenta de criação de jogos e aplicativos interativos
 
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+
+Tela do Editor
+
+![Screenshot do projeto](screen1.png "Tela do Editor")
+
+Instruções de uso
+![Screenshot do projeto](screen2.png "Instruções de uso in game")
+
+Tela inicial do visualizador
+![Screenshot do projeto](screen3.png "Tela inicial do visualizador")
+
+Visualização das linhas no mapa
+![Screenshot do projeto](screen4.png "Visualização das linhas no mapa")
+
 
 ## Instalação 
 **Linguagem**: GDscript<br>
