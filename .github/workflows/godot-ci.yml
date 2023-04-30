@@ -20,7 +20,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-18.04
 
     container:
       image: barichello/godot-ci:3.2.2
