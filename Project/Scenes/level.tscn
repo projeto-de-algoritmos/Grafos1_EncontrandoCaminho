@@ -1911,11 +1911,12 @@ custom_styles/normal = SubResource( 7 )
 text = " BFS "
 
 [node name="Fundo" type="ParallaxBackground" parent="."]
+visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="Fundo"]
 
 [node name="Sprite5" type="Sprite" parent="Fundo/ParallaxLayer"]
-position = Vector2( 205, 323 )
+position = Vector2( 253, 371 )
 scale = Vector2( 6.29492, 4.57324 )
 texture = ExtResource( 3 )
 

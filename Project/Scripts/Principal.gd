@@ -5,7 +5,7 @@ onready var player = $Cat
 onready var tilemap = $TileMap
 
 # Declaração de variáveis 
-enum {bfs, dfs, slow}
+enum {bfs, dfs, slow, dijkstra}
 var mode = bfs
 var speedmode = slow
 var ortho = false
@@ -91,13 +91,14 @@ func bfs_dfs(start, end, is_bfs):
 	var end_reached = false
 	var visit_data = {}
 	var parent_data = {}
-	for node in map_graph.graph_dict:
+	for node in map_graph.graph_dict:  # false em toda a lista visit_data
 		visit_data[node] = false
 	visit_data[start_node] = true
 	var rac = [start_node]
 	
 	var curr_node
 	while rac: # enquanto a lista rac não está vazia
+		#se é bfs, então use fila, senão usar pilha
 		if is_bfs:
 			curr_node = rac.pop_front()
 		else:
@@ -149,5 +150,3 @@ func _on_BFS_pressed():
 	mode = bfs
 func _on_DFS_pressed():
 	mode = dfs
-
-
