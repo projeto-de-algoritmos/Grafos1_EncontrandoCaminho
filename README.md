@@ -12,6 +12,10 @@
 
 Este é um projeto de visualização de busca de caminhos que utiliza os algoritmos de busca em largura (BFS) e busca em profundidade (DFS) para encontrar caminhos em um sistema de grade. O projeto foi desenvolvido na Godot Engine, uma poderosa ferramenta de criação de jogos e aplicativos interativos
 
+## Video de Apresentação
+O arquivo do vídeo (.mp4) da apresentação do projeto se encontra na pasta video -> [video](https://github.com/projeto-de-algoritmos/Grafos1_EncontrandoCaminho/blob/master/video/grafos1_video.mp4)
+
+
 ## Screenshots
 
 Tela do Editor
